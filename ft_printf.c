@@ -6,16 +6,37 @@
 /*   By: rsebasti <rsebasti@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:01:58 by rsebasti          #+#    #+#             */
-/*   Updated: 2024/11/10 14:42:31 by rsebasti         ###   ########.fr       */
+/*   Updated: 2024/11/11 07:48:01 by rsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	select(char c)
+#include "ft_printf.h"
+
+static int	putchars(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
+static int	putstrs(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		putchars(s[i]);
+		i++;
+	}
+	return (i);
+}
+
+static int	putvar(char c, va_list arg)
 {
 	if (c == 'c')
-		//char
+		return (putchar((char) arg));
 	if (c == 's')
-		// s
+		return (putstrs((char *) arg));
 	if (c == 'p')
 		//void
 	if (c == 'd')
@@ -35,17 +56,22 @@ static int	select(char c)
 int	ft_printf(const char *str, ...)
 {
 	int	i;
-	int	sum;
+	int	psize;
+	va_list	args;
 
 	i = 0;
+	va_start(args, 0);
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			sum += select(str[i + 1]);
+			psize += select(str[i + 1]);
 			i++;
 		}
+		else
+			psize = putchars(str[i]);
 		i++;
-		sum;
 	}
+	va_end(args);
+	return (psize);
 }
