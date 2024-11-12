@@ -6,13 +6,14 @@
 #    By: rsebasti <rsebasti@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/31 00:57:23 by rsebasti          #+#    #+#              #
-#    Updated: 2024/11/10 14:45:52 by rsebasti         ###   ########.fr        #
+#    Updated: 2024/11/12 09:33:18 by rsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 FLAGS = -Wall -Wextra -Werror
-SRCS = ft_printf.c
+SRCS = ft_printf.c \
+		ft_put.c
 
 OBJS = $(SRCS:.c=.o)
 
