@@ -6,11 +6,25 @@
 /*   By: rsebasti <rsebasti@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 09:29:08 by rsebasti          #+#    #+#             */
-/*   Updated: 2024/11/12 09:34:08 by rsebasti         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:32:36 by rsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	isset(char c)
+{
+	char	*set;
+
+	set = "cspdiuxX%";
+	while (*set)
+	{
+		if (*set == c)
+			return (1);
+		set++;
+	}
+	return (0);
+}
 
 static int	putaddr(void *adr)
 {
@@ -56,7 +70,7 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (str[i])
 	{
-		if (str[i] == '%')
+		if (str[i] == '%' && isset(str[i + 1]))
 		{
 			psize += putvar(str[i + 1], args);
 			i++;
@@ -69,7 +83,6 @@ int	ft_printf(const char *str, ...)
 	return (psize);
 }
 
-/*
 #include <stdio.h>
 
 int	main(void)
@@ -77,6 +90,6 @@ int	main(void)
 	long long int	t;
 
 	t = -9223372036854775808;
-	printf("%d - ", printf("Ceci est un test %p %p\n", 0, 0));
-	//ft_printf("%d - ", ft_printf("Ceci est un test %x\n", t));
-}*/
+	printf("1 %d - ", printf("1 Ceci est un test %z \n", 0, 0));
+	ft_printf("2 %d - ", ft_printf("2 Ceci est un test %z \n", 0, 0));
+}
